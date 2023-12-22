@@ -1,3 +1,4 @@
+import 'package:chat_app/constant.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
@@ -9,27 +10,32 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2B475E),
+      backgroundColor: kPrimaryColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 12,
         ),
-        child: Column(
+        child: ListView(
           children: [
-            const Spacer(
-              flex: 1,
+            Image.asset(
+              'assets/images/scholar.png',
+              height: 100,
             ),
-            Image.asset('assets/images/scholar.png'),
-            const Text(
-              'Scholar Chat',
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.white,
-                fontFamily: 'pacifico',
-              ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Scholar Chat',
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Colors.white,
+                    fontFamily: 'pacifico',
+                  ),
+                ),
+              ],
             ),
-            const Spacer(
-              flex: 1,
+            const SizedBox(
+              height: 30,
             ),
             const Row(
               children: [
@@ -101,8 +107,8 @@ class RegisterPage extends StatelessWidget {
                 ),
               ],
             ),
-            const Spacer(
-              flex: 3,
+            const SizedBox(
+              height: 15,
             ),
           ],
         ),

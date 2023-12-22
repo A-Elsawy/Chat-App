@@ -1,3 +1,4 @@
+import 'package:chat_app/constant.dart';
 import 'package:chat_app/pages/register_page.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
@@ -11,27 +12,32 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2B475E),
+      backgroundColor: kPrimaryColor,
       body: Padding(
         padding: const EdgeInsets.symmetric(
           horizontal: 12,
         ),
-        child: Column(
+        child: ListView(
           children: [
-            const Spacer(
-              flex: 1,
+            Image.asset(
+              'assets/images/scholar.png',
+              height: 150,
             ),
-            Image.asset('assets/images/scholar.png'),
-            const Text(
-              'Scholar Chat',
-              style: TextStyle(
-                fontSize: 32,
-                color: Colors.white,
-                fontFamily: 'pacifico',
-              ),
+            const Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  'Scholar Chat',
+                  style: TextStyle(
+                    fontSize: 32,
+                    color: Colors.white,
+                    fontFamily: 'pacifico',
+                  ),
+                ),
+              ],
             ),
-            const Spacer(
-              flex: 1,
+            const SizedBox(
+              height: 75,
             ),
             const Row(
               children: [
@@ -85,8 +91,8 @@ class LoginPage extends StatelessWidget {
                 ),
               ],
             ),
-            const Spacer(
-              flex: 3,
+            const SizedBox(
+              height: 15,
             ),
           ],
         ),
