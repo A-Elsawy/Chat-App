@@ -1,5 +1,6 @@
 import 'package:chat_app/constant.dart';
 import 'package:chat_app/helper/show_snake_bar.dart';
+import 'package:chat_app/pages/chat_page.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -39,7 +40,7 @@ class _RegisterPageState extends State<RegisterPage> {
             child: ListView(
               children: [
                 Image.asset(
-                  'assets/images/scholar.png',
+                  kLogo,
                   height: 100,
                 ),
                 const Row(
@@ -142,6 +143,8 @@ class _RegisterPageState extends State<RegisterPage> {
                         UserCredential user = await registerUser();
 
                         showSnakeBar(message, 'Welcome ${user.user!.email}');
+
+                        Navigator.pushNamed(context, ChatPage.routeName);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
                           showSnakeBar(message, 'The password is to weak.');

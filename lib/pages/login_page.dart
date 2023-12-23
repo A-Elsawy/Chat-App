@@ -1,5 +1,6 @@
 import 'package:chat_app/constant.dart';
 import 'package:chat_app/helper/show_snake_bar.dart';
+import 'package:chat_app/pages/chat_page.dart';
 import 'package:chat_app/pages/register_page.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -40,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
             child: ListView(
               children: [
                 Image.asset(
-                  'assets/images/scholar.png',
+                  kLogo,
                   height: 150,
                 ),
                 const Row(
@@ -113,6 +114,8 @@ class _LoginPageState extends State<LoginPage> {
                         UserCredential user = await loginUser();
 
                         showSnakeBar(message, 'Welcome ${user.user!.email}');
+
+                        Navigator.pushNamed(context, ChatPage.routeName);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           showSnakeBar(message, 'No user for that email.');
