@@ -1,8 +1,9 @@
 import 'package:chat_app/constant.dart';
 import 'package:chat_app/pages/register_page.dart';
-import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
+
+import '../widgets/custom_button.dart';
 
 class LoginPage extends StatelessWidget {
   static const String routeName = 'Login-Page';
