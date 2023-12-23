@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 typedef Validator = String? Function(String?);
 
-class CustomTextField extends StatelessWidget {
+class CustomTextFormField extends StatelessWidget {
   final String? hintText;
   final Function(String)? onChange;
   final Validator? validator;
-  const CustomTextField({
+  const CustomTextFormField({
     super.key,
     this.hintText,
     this.onChange,

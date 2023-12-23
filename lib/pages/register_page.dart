@@ -1,4 +1,5 @@
 import 'package:chat_app/constant.dart';
+import 'package:chat_app/helper/show_snake_bar.dart';
 import 'package:chat_app/widgets/custom_button.dart';
 import 'package:chat_app/widgets/custom_text_field.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -15,9 +16,7 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  String? email;
-
-  String? password;
+  String? email, password;
 
   bool isLoading = false;
 
@@ -97,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 // const SizedBox(
                 //   height: 10,
                 // ),
-                CustomTextField(
+                CustomTextFormField(
                   validator: (text) {
                     if (text == null || text.trim().isEmpty) {
                       return 'Please enter your email';
@@ -112,7 +111,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                CustomTextField(
+                CustomTextFormField(
                   validator: (text) {
                     if (text == null || text.trim().isEmpty) {
                       return 'Please enter a password';
@@ -142,10 +141,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       try {
                         UserCredential user = await registerUser();
 
-                        debugPrint(user.user!.displayName);
-
-                        showSnakeBar(message, 'Success.');
-                        Navigator.pop(context);
+                        showSnakeBar(message, 'Welcome ${user.user!.email}');
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'weak-password') {
                           showSnakeBar(message, 'The password is to weak.');
@@ -160,7 +156,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       }
                       isLoading = false;
                       setState(() {});
-                    } else {}
+                    }
                   },
                 ),
                 const SizedBox(
@@ -195,14 +191,6 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           ),
         ),
-      ),
-    );
-  }
-
-  void showSnakeBar(ScaffoldMessengerState message, String text) {
-    message.showSnackBar(
-      SnackBar(
-        content: Text(text),
       ),
     );
   }
