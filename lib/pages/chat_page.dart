@@ -1,4 +1,5 @@
 import 'package:chat_app/constant.dart';
+import 'package:chat_app/models/message.dart';
 import 'package:chat_app/widgets/custom_chat_bubble.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -18,14 +19,20 @@ class _ChatPageState extends State<ChatPage> {
   CollectionReference messages =
       FirebaseFirestore.instance.collection(kCollectionMessage);
 
+  final _controller = ScrollController();
+
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<QuerySnapshot>(
-        future: messages.get(),
+    return StreamBuilder<QuerySnapshot>(
+        stream: messages.orderBy(kCreatedAt, descending: true).snapshots(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data!.docs[2]['message']);
+            List<Message> messagesList = [];
+
+            for (int i = 0; i < snapshot.data!.docs.length; i++) {
+              messagesList.add(Message.fromJson(snapshot.data!.docs[i]));
+            }
 
             return Scaffold(
               appBar: AppBar(
@@ -52,9 +59,11 @@ class _ChatPageState extends State<ChatPage> {
                 children: [
                   Expanded(
                     child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      itemBuilder: (context, index) => const ChatBubble(),
-                      itemCount: 22,
+                      controller: _controller,
+                      reverse: true,
+                      itemBuilder: (context, index) =>
+                          ChatBubble(message: messagesList[index]),
+                      itemCount: messagesList.length,
                     ),
                   ),
                   Padding(
@@ -63,10 +72,17 @@ class _ChatPageState extends State<ChatPage> {
                       controller: controller,
                       onSubmitted: (data) {
                         messages.add({
-                          'message': data,
+                          kMessage: data,
+                          kCreatedAt: DateTime.now(),
                         });
 
                         controller.clear();
+
+                        _controller.animateTo(
+                          0,
+                          duration: const Duration(seconds: 1),
+                          curve: Curves.fastOutSlowIn,
+                        );
                       },
                       decoration: InputDecoration(
                         hintText: 'Send Message',
