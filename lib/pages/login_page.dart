@@ -100,6 +100,7 @@ class _LoginPageState extends State<LoginPage> {
                     password = data;
                   },
                   hintText: 'Password',
+                  isObscure: true,
                 ),
                 const SizedBox(
                   height: 20,

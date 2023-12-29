@@ -6,11 +6,13 @@ class CustomTextFormField extends StatelessWidget {
   final String? hintText;
   final Function(String)? onChange;
   final Validator? validator;
+  final bool? isObscure;
   const CustomTextFormField({
     super.key,
     this.hintText,
     this.onChange,
     this.validator,
+    this.isObscure,
   });
 
   @override
@@ -18,6 +20,7 @@ class CustomTextFormField extends StatelessWidget {
     return TextFormField(
       validator: validator,
       onChanged: onChange,
+      obscureText: isObscure ?? false,
       style: const TextStyle(
         color: Colors.white,
       ),
