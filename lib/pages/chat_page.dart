@@ -24,6 +24,8 @@ class _ChatPageState extends State<ChatPage> {
   TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    String email = ModalRoute.of(context)!.settings.arguments as String;
+
     return StreamBuilder<QuerySnapshot>(
         stream: messages.orderBy(kCreatedAt, descending: true).snapshots(),
         builder: (context, snapshot) {
@@ -61,8 +63,10 @@ class _ChatPageState extends State<ChatPage> {
                     child: ListView.builder(
                       controller: _controller,
                       reverse: true,
-                      itemBuilder: (context, index) =>
-                          ChatBubble(message: messagesList[index]),
+                      itemBuilder: (context, index) => messagesList[index].id ==
+                              email
+                          ? ChatBubble(message: messagesList[index])
+                          : ChatBubbleForFriend(message: messagesList[index]),
                       itemCount: messagesList.length,
                     ),
                   ),
@@ -72,6 +76,7 @@ class _ChatPageState extends State<ChatPage> {
                       controller: controller,
                       onSubmitted: (data) {
                         messages.add({
+                          'id': email,
                           kMessage: data,
                           kCreatedAt: DateTime.now(),
                         });

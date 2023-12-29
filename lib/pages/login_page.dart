@@ -115,7 +115,8 @@ class _LoginPageState extends State<LoginPage> {
 
                         showSnakeBar(message, 'Welcome ${user.user!.email}');
 
-                        Navigator.pushNamed(context, ChatPage.routeName);
+                        Navigator.pushNamed(context, ChatPage.routeName,
+                            arguments: email);
                       } on FirebaseAuthException catch (e) {
                         if (e.code == 'user-not-found') {
                           showSnakeBar(message, 'No user for that email.');
